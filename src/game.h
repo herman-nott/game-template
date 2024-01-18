@@ -12,6 +12,8 @@
 #include "./play.h"
 #include "./settings.h"
 #include "./uielement.h"
+#include "./player.h"
+#include "./enemy.h"
 
 // Window Initialization Function
 // Функция Инициализации Окна
@@ -45,8 +47,34 @@ bool prepare_game(void);
 // Переменная game_is_running
 extern bool game_is_running;
 
+extern SDL_Window* window ;
+extern SDL_Renderer* renderer;
+// ---------------------------------------------------------
+
+
 // Background Variable
 // Переменная заднего фона
 extern BACKGROUND bg;
+
+// ховер для кнопок главного меню
+extern UIELEMENT menu_hover_element;
+
+// кнопка домой
+extern UIELEMENT return_element;
+
+// кнопка домой (ховер)
+extern UIELEMENT return_hover_element;
+
+// кнопка домой
+extern UIELEMENT home_element;
+
+// кнопка домой (ховер)
+extern UIELEMENT home_hover_element;
+
+// игрок
+extern PLAYER player;
+
+// враг
+extern ENEMY enemy;
 
 #endif

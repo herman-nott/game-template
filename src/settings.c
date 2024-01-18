@@ -52,3 +52,9 @@ void settings_properties(SDL_Renderer* renderer, SDL_Event event, enum GameState
         home_hover_element->image = NULL;
     }
 }
+
+void draw_settings_interface(SDL_Renderer* renderer)
+{
+    draw_element(renderer, &home_element, 36, 36);
+    draw_element(renderer, &home_hover_element, 36, 36);
+}

@@ -65,3 +65,8 @@ void menu_properties(SDL_Renderer* renderer, SDL_Event event, enum GameStates *i
         mouse_hover_element->image = NULL;
     }
 }
+
+void draw_menu_interface(SDL_Renderer* renderer)
+{
+    draw_element(renderer, &menu_hover_element, 250, 80);
+}

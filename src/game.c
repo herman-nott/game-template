@@ -28,6 +28,12 @@
     // кнопка домой (ховер)
     UIELEMENT home_hover_element;
 
+    // игрок
+    PLAYER player;
+
+    // враг
+    ENEMY enemy;
+
 #pragma endregion
 
 bool prepare_game(void) 
@@ -38,13 +44,19 @@ bool prepare_game(void)
 
     menu_hover_element = create_element(0, 0, NULL);
 
-    return_element = create_element(40, 420, load_texture(renderer, returnBTN));
+    return_element = create_element(40, 430, load_texture(renderer, returnBTN));
 
     return_hover_element = create_element(0, 0, NULL);
 
     home_element = create_element(40, 420, load_texture(renderer, homeBTN));
 
     home_hover_element = create_element(0, 0, NULL);
+
+    // ---------------------------------------------------
+
+    player = create_player(-128, 269, 1, PLAYER_IDLE, load_texture(renderer, samurai_Idle_path));
+
+    enemy = create_enemy(628, 269, 2, 4, ENEMY_IDLE, load_texture(renderer, werewolf_Idle_path));
 
 
     return true;
@@ -72,6 +84,7 @@ bool init_window(const char *title, int xpos, int ypos, int width, int height, b
     }
 
     resource_init(renderer);
+
     if (prepare_game() == false)
     {
         return false;
@@ -96,20 +109,24 @@ void render(void)
     
     if (interface == MENU)
     {
-        draw_element(renderer, &menu_hover_element, 250, 80);
+        draw_menu_interface(renderer);
     }
     else if (interface == PLAY)
     {
-        draw_element(renderer, &return_element, 36, 36);
-        draw_element(renderer, &return_hover_element, 36, 36);
+        draw_play_interface(renderer);
+        play_logic(renderer);
     }
     else if (interface == SETTINGS)
     {
-        draw_element(renderer, &home_element, 36, 36);
-        draw_element(renderer, &home_hover_element, 36, 36);
+        draw_settings_interface(renderer);
+    }
+
+    if (player.pos_x >= 768)
+    {
+        interface = MENU;
     }
     
-
+    
     SDL_RenderPresent(renderer);
 }
 
@@ -129,24 +146,6 @@ void buttons(SDL_Event event)
     menu_hover_element.image = NULL;
     return_hover_element.image = NULL;
     home_hover_element.image = NULL;
-
-    switch (event.type)
-    {
-    case SDL_KEYDOWN:
-        switch (event.key.keysym.scancode)
-        {
-        case SDL_SCANCODE_1:
-            interface = MENU;
-            break; 
-        case SDL_SCANCODE_2:
-            interface = PLAY;
-            break; 
-        case SDL_SCANCODE_3:
-            interface = SETTINGS;
-            break; 
-        }
-        break;
-    }
 
     SDL_GetMouseState(&mouse_x, &mouse_y);
     
@@ -182,5 +181,11 @@ void game(void)
         settings();
         break;
     }
+
+    if (interface != PLAY)
+    {
+        reset_play_state();
+    }
+    
     render();
 }

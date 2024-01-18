@@ -7,7 +7,7 @@
 #define WINDOW_TITLE "My Window"
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
-#define FULLSCREEN false
+#define FULLSCREEN true
 
 ///////////////////////////////////////////////////////////////////////////////
 // FPS

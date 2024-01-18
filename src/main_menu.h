@@ -13,5 +13,6 @@ void main_menu(void);
 
 void menu_properties(SDL_Renderer* renderer, SDL_Event event, enum GameStates *interface, int *mouse_x, int *mouse_y, UIELEMENT *mouse_hover_element);
 
+void draw_menu_interface(SDL_Renderer* renderer);
 
 #endif
